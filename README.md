@@ -2,7 +2,22 @@
 
 My sample project divided in task to work with .NET and Azure 
 
-task1
+## Task 1
 
-- Sample structrue using  ```dotnet new webapi -n Api -o .
-- 
+Sample API endpoint returuning 
+
+- to run dockerized application run: 
+```
+docker compose up -d
+```
+- to stop app
+```
+docker compose down
+```
+
+#### Note: 
+- Sample structrue of dotnet api project created using:
+```
+dotnet new webapi -n Api -o .
+```
+

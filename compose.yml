@@ -1,0 +1,8 @@
+services:
+  api-service:
+    build:
+      context: ./task1
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: task1-api
