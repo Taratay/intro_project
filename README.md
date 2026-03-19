@@ -15,10 +15,10 @@ docker compose up -d
 docker compose down
 ```
 
-## Task 1
+## Task 2
 
 Run endpoint in windows IIS
 
-- simply run run.bat from task2 folder
+- simply run  `run.bat` from task2 folder
 
 
