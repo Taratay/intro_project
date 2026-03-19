@@ -4,7 +4,7 @@ My sample project divided in task to work with .NET and Azure
 
 ## Task 1
 
-Sample API endpoint returuning 
+Sample API endpoint returuning time in UTC
 
 - to run dockerized application run: 
 ```
