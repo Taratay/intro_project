@@ -1,13 +1,16 @@
 # WA
 #$env:Path += ";C:\Program Files\dotnet;C:\Program Files\Git\cmd"
-
+#https://learn.microsoft.com/en-us/iis/manage/scripting/how-to-use-microsoftwebadministration
 # WA: git credentials 
 
 $url = "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/10.0.5/dotnet-hosting-10.0.5-win.exe"
-$installer = "$env:TEMP\dotnet-hosting-10.0.5-win.exe"
 $repo = "https://github.com/Taratay/intro_project.git"
 $temp = "C:\tmp_build\task1"
+$installer = "$env:TEMP\dotnet-hosting-10.0.5-win.exe"
 $webdir = "C:\inetpub\wwwroot\api"
+# Another WA (I ran windows on qemu vm probably it caused some registy issue)
+$appcmd = "$env:SystemRoot\system32\inetsrv\appcmd.exe"
+$moduleCheck = & $appcmd list config -section:system.webServer/globalModules | Select-String "AspNetCoreModuleV2"
 
 git config --global credential.helper ""
 
@@ -34,9 +37,7 @@ if (!(Test-Path "$env:SystemRoot\system32\inetsrv\aspnetcore.dll")) {
     net start w3svc
 }
 
-# Another WA (I ran windows on qemu vm probably it caused some registy issue)
-$appcmd = "$env:SystemRoot\system32\inetsrv\appcmd.exe"
-$moduleCheck = & $appcmd list config -section:system.webServer/globalModules | Select-String "AspNetCoreModuleV2"
+
 
 # Re register module of web bundle just in case, again unusual error
 if (!$moduleCheck) {
@@ -54,7 +55,6 @@ echo "Building project..."
 cd "$temp\task1"
 dotnet publish -c Release -o "$temp\out"
 
-Import-Module WebAdministration -ErrorAction 0
 if (!(Test-Path $webdir)) { mkdir $webdir }
 if (!(Get-Website "MyApiSite" -ErrorAction 0)) {
     New-IISAppPool "MyPool" -ErrorAction 0

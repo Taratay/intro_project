@@ -1,0 +1,4 @@
+resource_group_name  = "rg-tfstate"
+storage_account_name = "mystatetask3acct"
+container_name       = "tfstate"
+key                  = "task3.tfstate"

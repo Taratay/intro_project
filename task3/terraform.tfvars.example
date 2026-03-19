@@ -1,0 +1,21 @@
+subscription_id         = "00000000-0000-0000-0000-000000000000"
+admin_ssh_public_key    = ""
+resource_group_name     = "rg-intro-task3"
+location                = "westeurope"
+name_prefix             = "task3-docker"
+vm_size                 = "Standard_B1s"
+admin_username          = "azureadmin"
+vnet_cidr               = "10.30.0.0/16"
+subnet_cidr             = "10.30.1.0/24"
+allowed_http_source_cidr = "*"
+allowed_ssh_source_cidr  = "*"
+container_name          = "task3-api"
+image_name              = "task3-api:latest"
+site_port               = 80
+app_port                = 8080
+repo_url                = "https://github.com/Taratay/intro_project.git"
+task_directory          = "task1"
+tags = {
+  project = "intro-project"
+  task    = "task3"
+}

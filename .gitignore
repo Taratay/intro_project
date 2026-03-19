@@ -1,2 +1,5 @@
 **/obj/
 **/bin/
+**/.terraform/
+.terraform.lock.hcl
+terraform.tfvars
