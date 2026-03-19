@@ -15,9 +15,10 @@ docker compose up -d
 docker compose down
 ```
 
-#### Note: 
-- Sample structrue of dotnet api project created using:
-```
-dotnet new webapi -n Api -o .
-```
+## Task 1
+
+Run endpoint in windows IIS
+
+- simply run run.bat from task2 folder
+
 
