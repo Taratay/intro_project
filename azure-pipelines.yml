@@ -3,6 +3,9 @@ trigger:
     include:
       - main
       - dev
+  paths:
+    include:
+      - task1/**
 
 variables:
   major: 1
