@@ -126,9 +126,17 @@ terraform apply
 
 ## Destroy
 
-To destroy deployed project on azure run:
+To destroy deployed project run in the same directory:
 
 ```bash
 cd task3
 terraform destroy
 ```
+
+## Troubleshooting
+
+If you have trouble creating container 
+
+```Subscription MY_SUBSCRIPTION_ID_HERE was not found.```
+
+Check if you able to create a storage account in Azure Portal
