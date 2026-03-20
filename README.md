@@ -132,4 +132,3 @@ To destroy deployed project on azure run:
 cd task3
 terraform destroy
 ```
-
