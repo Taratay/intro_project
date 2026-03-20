@@ -40,12 +40,6 @@ stages:
         projects: 'task1/Api.csproj'
         arguments: '--no-restore'
 
-- stage: Publish
-  dependsOn: Build
-  jobs:
-  - job: PublishJob
-    steps:
-
     - task: DotNetCoreCLI@2
       displayName: Publish app
       inputs:
