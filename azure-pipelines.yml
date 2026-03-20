@@ -97,9 +97,8 @@ stages:
 
 - stage: Tag
   displayName: "Tag version and push to GitHub"
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
   dependsOn: Publish
-  condition: succeeded()
-
   jobs:
   - job: TagJob
     pool:
