@@ -32,20 +32,21 @@ stages:
       inputs:
         command: 'restore'
         projects: 'task1/Api.csproj'
+        arguments: '--configuration Release'
 
     - task: DotNetCoreCLI@2
       displayName: Build project
       inputs:
         command: 'build'
         projects: 'task1/Api.csproj'
-        arguments: '--no-restore'
+        arguments: '--configuration Release --no-restore'
 
     - task: DotNetCoreCLI@2
       displayName: Publish app
       inputs:
         command: 'publish'
         projects: 'task1/Api.csproj'
-        arguments: '--output $(Build.ArtifactStagingDirectory) --no-build'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory) --no-build'
 
     - publish: $(Build.ArtifactStagingDirectory)
       artifact: api
