@@ -16,7 +16,6 @@ stages:
 # https://learn.microsoft.com/es-es/azure/devops/pipelines/tasks/reference/dotnet-core-cli-v2?view=azure-pipelines
 
 - stage: Build
-  dependsOn: Restore
   jobs:
   - job: BuildJob
     steps:
