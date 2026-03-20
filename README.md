@@ -8,20 +8,20 @@ My sample project divided in task to work with .NET and Azure
 
 Simple dotnet endpoint which returns app start time in UTC
 
-### Requirements
+## Requirements
 - Windows 10/11 or Windows Server or any linux distribution
 - .NET SDK 10.0.0 has to be installed
 - Docker and Docker Compose needs to be installed to build image, alternativley use dotnet runner to run code only
 
 
-### Deploy
+## Deploy
 1. to run with docker:
-#### Docker
+### Docker
 ```
 docker compose up -d
 ```
 
-#### Windows 
+### Windows 
 ```
 dotnet run --launch-profile "http"
 ```
@@ -29,28 +29,28 @@ dotnet run --launch-profile "http"
 2. Open browser on same machine and access ```http://localhost:8080/pong``` it should return application start time in UTC
 
 
-### Stop
-#### Docker 
+## Stop
+### Docker 
 run:
 ```
 docker compose down
 ```
-#### Windows 
+### Windows 
 press ```ctrl + c``` in same console where dotnet run was executed
 
 ## Task 2
 
-### Requirements
+## Requirements
 - Windows 10/11 or Windows Server 
 - Admin privilages to be able to execute shell script
 - Internet connection
 
-### Assumptions
+## Assumptions
 - Script will redownload github repository each run
 - Approach of this script to be as part of CI/CD process, script is safe to re-run but site pool will be redeployed each time 
 - In case any changes needed to be made in path's script variables should be modified
 
-### Run endpoint in windows IIS
+## Run endpoint in windows IIS
 
 - Copy content from task2 folder to Windows machine to user space
 - execute `run.bat` in order to run script
