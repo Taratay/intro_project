@@ -12,7 +12,7 @@ variables:
 pool:
   vmImage: ubuntu-latest
 
-steps:
+stages:
 # https://learn.microsoft.com/es-es/azure/devops/pipelines/tasks/reference/dotnet-core-cli-v2?view=azure-pipelines
 - stage: Restore
   jobs:
