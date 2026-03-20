@@ -13,22 +13,91 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '10.0.x'
+# https://learn.microsoft.com/es-es/azure/devops/pipelines/tasks/reference/dotnet-core-cli-v2?view=azure-pipelines
+- stage: Restore
+  jobs:
+  - job: RestoreJob
+    steps:
 
-- script: dotnet format --verify-no-changes ./task1
-  displayName: "Lint C#"
+    - task: DotNetCoreCLI@2
+      displayName: Restore dependencies
+      inputs:
+        command: 'restore'
+        projects: 'task1/MyApp.csproj'
 
-- script: |
-    echo "Version: $(major).$(minor).$(patch).$(Build.BuildId)"
+- stage: Build
+  dependsOn: Restore
+  jobs:
+  - job: BuildJob
+    steps:
 
-    git config user.email "azure-devops@local"
-    git config user.name "azure-devops"
+    - task: DotNetCoreCLI@2
+      displayName: Build project
+      inputs:
+        command: 'build'
+        projects: 'task1/Api.csproj'
+        arguments: '--no-restore'
 
-    git remote set-url origin https://$(GITHUB_TOKEN)@github.com/Taratay/intro_project.git
+- stage: Publish
+  dependsOn: Build
+  jobs:
+  - job: PublishJob
+    steps:
 
-    git tag v$(major).$(minor).$(patch).$(Build.BuildId)
-    git push origin v$(major).$(minor).$(patch).$(Build.BuildId)
-  displayName: "Tag and push"
+    - task: DotNetCoreCLI@2
+      displayName: Publish app
+      inputs:
+        command: 'publish'
+        projects: 'task1/Api.csproj'
+        arguments: '--output $(Build.ArtifactStagingDirectory) --no-build'
+
+    - publish: $(Build.ArtifactStagingDirectory)
+      artifact: api
+
+- stage: Deploy
+  dependsOn: Publish
+  condition: succeeded()
+
+  jobs:
+  - deployment: DeployWebApp
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: api
+
+          - task: AzureWebApp@1
+            displayName: Deploy
+            inputs:
+              azureSubscription: 'azure-service-connection'
+              appName: 'task1-api'
+              package: '$(Pipeline.Workspace)/api'
+
+- stage: Tag
+  displayName: "Tag version and push to GitHub"
+  dependsOn: Publish
+  condition: succeeded()
+
+  jobs:
+  - job: TagJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+
+    - task: Bash@3
+      displayName: "Create and push Git tag"
+      inputs:
+        targetType: 'inline'
+        script: |
+          VERSION=$(major).$(minor).$(patch).$(Build.BuildId)
+          echo "Version: $VERSION"
+
+          git config user.email "azure-devops@local"
+          git config user.name "azure-devops"
+
+          git remote set-url origin https://$(GITHUB_TOKEN)@github.com/Taratay/intro_project.git
+
+
+          git tag v$VERSION
+          git push origin v$VERSION
