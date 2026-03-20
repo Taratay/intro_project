@@ -19,6 +19,12 @@ stages:
   - job: RestoreJob
     steps:
 
+    - task: UseDotNet@2
+      displayName: Install .NET 10 SDK
+      inputs:
+        packageType: 'sdk'
+        version: '10.0.x'
+
     - task: DotNetCoreCLI@2
       displayName: Restore dependencies
       inputs:
@@ -30,6 +36,12 @@ stages:
   jobs:
   - job: BuildJob
     steps:
+
+    - task: UseDotNet@2
+      displayName: Install .NET 10 SDK
+      inputs:
+        packageType: 'sdk'
+        version: '10.0.x'
 
     - task: DotNetCoreCLI@2
       displayName: Build project
