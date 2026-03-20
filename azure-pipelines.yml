@@ -51,7 +51,7 @@ stages:
       artifact: api
 
 - stage: Deploy
-  dependsOn: Publish
+  dependsOn: Build
   condition: succeeded()
 
   jobs:
@@ -73,7 +73,7 @@ stages:
 
 - stage: Tag
   displayName: "Tag version and push to GitHub"
-  dependsOn: Publish
+  dependsOn: Build
   condition: succeeded()
 
   jobs:
