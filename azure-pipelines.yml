@@ -30,7 +30,7 @@ stages:
       displayName: Restore dependencies
       inputs:
         command: 'restore'
-        projects: 'task1/MyApp.csproj'
+        projects: 'task1/Api.csproj'
 
 - stage: Build
   dependsOn: Restore
