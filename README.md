@@ -15,7 +15,7 @@ Simple dotnet endpoint which returns app start time in UTC
 
 
 ## Deploy
-1. to run with docker:
+
 ### Docker
 ```
 docker compose up -d
