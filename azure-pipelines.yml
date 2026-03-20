@@ -96,7 +96,6 @@ stages:
               package: '$(Pipeline.Workspace)/api'
 
 - stage: Tag
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   displayName: "Tag version and push to GitHub"
   dependsOn: Publish
   condition: succeeded()
